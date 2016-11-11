@@ -444,14 +444,15 @@ RUN echo "" >> /etc/R/Rprofile.site && \
 	
 
 # add a non-root user so we can log into R studio as that user; make sure that user is in the group "users"
-RUN adduser --disabled-password --gecos "" --ingroup users guest 
-
+# RUN adduser --disabled-password --gecos "" --ingroup users guest 
+RUN adduser -p "guest" --ingroup users guest 
 # add a script that supervisord uses to set the user's password based on an optional
 # environmental variable ($VNCPASS) passed in when the containers is instantiated
 ADD initialize.sh /
 
 # set the locale so RStudio doesn't complain about UTF-8
-RUN locale-gen en_US en_US.UTF-8
+#RUN locale-gen en_US en_US.UTF-8
+RUN locale-gen es_ES es_ES.UTF-8
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 
 
